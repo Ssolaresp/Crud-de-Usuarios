@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 29, 2025 at 02:03 PM
+-- Generation Time: Jul 29, 2025 at 03:51 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -60,20 +60,16 @@ CREATE TABLE `bitacora_sesiones` (
   `fecha_salida` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `recuperar_contrasena`
+-- Dumping data for table `bitacora_sesiones`
 --
 
-CREATE TABLE `recuperar_contrasena` (
-  `id` int NOT NULL,
-  `usuario_id` int NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `expiracion` datetime NOT NULL,
-  `utilizado` tinyint(1) DEFAULT '0',
-  `creado_en` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `bitacora_sesiones` (`id`, `usuario_id`, `ip`, `navegador`, `fecha_ingreso`, `fecha_salida`) VALUES
+(1, 1, '192.168.1.1', 'Mozila firefox', '2025-07-29 08:23:15', NULL),
+(2, 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0', '2025-07-29 09:24:41', NULL),
+(3, 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0', '2025-07-29 09:26:32', '2025-07-29 09:26:33'),
+(4, 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0', '2025-07-29 09:29:29', NULL),
+(5, 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0', '2025-07-29 09:36:13', '2025-07-29 09:44:28');
 
 -- --------------------------------------------------------
 
@@ -142,7 +138,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `estado_id`, `creado_en`, `actualizado_en`) VALUES
-(1, 'Admin', 'admin@example.com', 'admin', 1, '2025-07-29 07:54:36', '2025-07-29 07:54:36');
+(1, 'Admin', 'admin@example.com', '$2y$10$ipuc.R3vb8.5oT1dVMXw8.wvnttfs0B8bzxPkgd39WquUSbW6MOYS', 1, '2025-07-29 07:54:36', '2025-07-29 08:22:33'),
+(2, 'Selvin', 'selvin@example.com', '$2y$10$G/Y4E0iXbWI6R1jKlozf0edfnwpDj1DhRMTeJBQY1qbBmBVwjiBo6', 1, '2025-07-29 08:21:46', '2025-07-29 08:24:07');
 
 --
 -- Indexes for dumped tables
@@ -159,13 +156,6 @@ ALTER TABLE `bitacora_estados`
 -- Indexes for table `bitacora_sesiones`
 --
 ALTER TABLE `bitacora_sesiones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
-
---
--- Indexes for table `recuperar_contrasena`
---
-ALTER TABLE `recuperar_contrasena`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuario_id` (`usuario_id`);
 
@@ -206,31 +196,25 @@ ALTER TABLE `bitacora_estados`
 -- AUTO_INCREMENT for table `bitacora_sesiones`
 --
 ALTER TABLE `bitacora_sesiones`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `recuperar_contrasena`
---
-ALTER TABLE `recuperar_contrasena`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `rol_usuario`
 --
 ALTER TABLE `rol_usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -241,12 +225,6 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `bitacora_sesiones`
   ADD CONSTRAINT `bitacora_sesiones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `recuperar_contrasena`
---
-ALTER TABLE `recuperar_contrasena`
-  ADD CONSTRAINT `recuperar_contrasena_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `rol_usuario`
